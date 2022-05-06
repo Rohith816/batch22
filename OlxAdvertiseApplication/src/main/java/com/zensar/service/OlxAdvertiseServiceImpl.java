@@ -3,21 +3,31 @@ package com.zensar.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.zensar.entity.Advertise;
 import com.zensar.entity.AdvertiseDetails;
-
-public class OlxAdvertiseServiceImpl implements OlxAdvertiseService{
+import com.zensar.repository.OlxAdvertiseRepository;
+@Service
+public class OlxAdvertiseServiceImpl implements OlxAdvertiseService {
+	
+	@Autowired
+    private OlxAdvertiseRepository olxadvertiseRepository;
+     
 	static List<Advertise> advertises = new ArrayList<Advertise>();
 	static List<AdvertiseDetails> advertiseDetails=new ArrayList<AdvertiseDetails>();
 
 	static {
-		advertises.add(new Advertise(1L, "laptop sale", 54000, "Electronic goods", "intel core 3 Sony Vaio", "anand",
+		advertises.add(new Advertise(1L, "laptop sale", 54000., "Electronic goods", "intel core 3 Sony Vaio", "anand",
 				"7/21/22", "7/21/22", "OPEN"));
 	}
 	
 	static {
-		advertiseDetails.add(new AdvertiseDetails(1L, "laptop sale", 54000, "Electronic goods", "intel core 5 sony vaio", "anand",	"7/21/22", "7/21/22", "OPEN"));
+		advertiseDetails.add(new AdvertiseDetails(1L, "laptop sale", 54000, "Electronic goods", "intel core 3 Sony Vaio", "anand",
+				"7/21/22", "7/21/22", "OPEN","Anand Kulkarni"));
 	}
+	
 	@Override
 	public Advertise addAdvertise(Advertise advertise, String username, String password) {
 		if (username.equals("anand") && password.equals("anand123")) {
@@ -60,6 +70,7 @@ public class OlxAdvertiseServiceImpl implements OlxAdvertiseService{
 
 		return null;
 	}
+
 	@Override
 	public List<Advertise> getAllAdvertise(String username, String password) {
 		if (username.equals("anand") && password.equals("anand123")) {
@@ -83,6 +94,7 @@ public class OlxAdvertiseServiceImpl implements OlxAdvertiseService{
 			}
 			return false;
 	}
+
 	@Override
 	public Advertise searchAdvertisementsByCriteria(String category, String toDate, Long filtercriteria,
 			String fromDate) {
@@ -95,10 +107,12 @@ public class OlxAdvertiseServiceImpl implements OlxAdvertiseService{
 		}
 		return null;
 	}
+
 	@Override
 	public List<Advertise> searchAdvertise() {
 		return advertises;
 	}
+
 	@Override
 	public List<AdvertiseDetails> advertiseDetails(long id, String username, String password) {
 		if (username.equals("anand") && password.equals("anand123")) {
@@ -112,4 +126,4 @@ public class OlxAdvertiseServiceImpl implements OlxAdvertiseService{
 		return null;
 	}
 
-	}
+}

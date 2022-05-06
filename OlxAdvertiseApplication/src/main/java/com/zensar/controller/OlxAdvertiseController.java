@@ -13,17 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zensar.entity.Advertise;
 import com.zensar.entity.AdvertiseDetails;
 import com.zensar.service.OlxAdvertiseService;
 
-@RestController
-@RequestMapping(produces= {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE}, consumes= { MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 
+
+@RestController
+//@RequestMapping(produces= {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE}, consumes= { MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 public class OlxAdvertiseController {
+
 	@Autowired
 	private OlxAdvertiseService olxadvertiseService;
 
@@ -34,41 +35,41 @@ public class OlxAdvertiseController {
 	return new ResponseEntity<Advertise>(advertise,HttpStatus.CREATED);
 	}
 	
-@GetMapping("/user/advertise/{postId}")
+@GetMapping(value="/user/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 public Advertise getAdvertise(@PathVariable long postId,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 	return olxadvertiseService.getAdvertise(postId, username, password);
 		
 	}
 
-	@PutMapping("/advertise/{id}")
+	@PutMapping(value="/advertise/{id}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public Advertise updateAdvertise(@PathVariable long id, @RequestBody Advertise advertises,
 			@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 		return olxadvertiseService.updateAdvertise(id, advertises, username, password);
 
 	}
 	
-	@GetMapping("/user/advertise")
+	@GetMapping(value="/user/advertise",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public List<Advertise> getAllAdvertise(@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 		return olxadvertiseService.getAllAdvertise(username, password);
 	}
 	
-	@DeleteMapping("/user/advertise/{postId}")
+	@DeleteMapping(value="/user/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public boolean deleteAdvertise(@PathVariable("postId") long id,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
                return olxadvertiseService.deleteAdvertise(id, username, password);
 	}
 	
-	@GetMapping(value="/advertise/search/{filtercriteria}")
+	@GetMapping(value="/advertise/search/{filtercriteria}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public Advertise searchAdvertisementsByCriteria(@PathVariable long filtercriteria, String category, String toDate, String fromDate) {
 	return olxadvertiseService.searchAdvertisementsByCriteria(category, toDate, filtercriteria, fromDate);
 	}
 	
-	@GetMapping("/advertise/search")
+	@GetMapping(value="/advertise/search",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public List<Advertise> searchAdvertise() {
 		
 		return olxadvertiseService.searchAdvertise();
 		
 	}
-	@GetMapping("/advertise/{postId}")
+	@GetMapping(value="/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public List<AdvertiseDetails> advertiseDetails(@PathVariable("postId") long id,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 		
 		return olxadvertiseService.advertiseDetails(id, username, password);
@@ -76,4 +77,3 @@ public Advertise getAdvertise(@PathVariable long postId,@RequestHeader("userName
 	}
 
 }
-

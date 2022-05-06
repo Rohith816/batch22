@@ -3,10 +3,20 @@ package com.zensar.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.zensar.entity.AdversiteCategory;
 import com.zensar.entity.AdvertiseStatus;
-
+import com.zensar.repository.CategoryRepository;
+import com.zensar.repository.StatusRepository;
+@Service
 public class OlxMasterServiceImpl implements OlxMasterService {
+	
+	@Autowired
+    private CategoryRepository categoryRepository;
+	@Autowired
+	private StatusRepository statusRepository;
 
 	static List<AdversiteCategory> categories= new ArrayList<AdversiteCategory>();
 	static List<AdvertiseStatus> status=new ArrayList<AdvertiseStatus>();
@@ -22,17 +32,17 @@ public class OlxMasterServiceImpl implements OlxMasterService {
 	static {
 		status.add(new AdvertiseStatus(1L, "OPEN"));
 		status.add(new AdvertiseStatus(2L, "CLOSED"));
-	}
+	} 
 	
 	
+	@Override
 	public List<AdversiteCategory> getAllAdvertisementCategories() {
-		return categories;
+		return categoryRepository.findAll();
 	}
 
 	@Override
 	public List<AdvertiseStatus> getAllAdvertisementStatus() {
-		return status;
+		return statusRepository.findAll();
 	}
-
 
 }
