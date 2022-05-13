@@ -8,6 +8,7 @@ public class OlxLoginApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OlxLoginApplication.class, args);
+		System.out.println("OLX-LOGIN");
 	}
 
 }
